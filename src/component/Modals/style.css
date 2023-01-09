@@ -1,0 +1,3 @@
+.MuiInput-underline.Mui-focused::after{
+transform:scaleX(0)!important;
+}

@@ -1,0 +1,40 @@
+.carousel.carousel-slider {
+    overflow:visible;
+    }
+    .control-arrow.control-prev,
+    .control-arrow.control-next{
+        background-color: #FFF;
+        left: -35px!important;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border:1px solid #4e4444!important;
+        cursor:pointer;
+        top:50%!important;
+        transform:translateY(-50%)!important;
+    }
+    .control-arrow.control-prev::before{
+        border-right-color:#4e4444!important;
+        border-right-width: 10px!important;
+    }
+    .control-arrow.control-next{
+        left:auto!important;
+        right: -36px!important;
+    }
+    .control-arrow.control-next::before{
+        border-left-color:#4e4444!important;
+        border-left-width: 10px!important;
+    }
+    .control-dots{
+        bottom:-50px!important;
+        background-color: #eee;
+        border-radius:15px;
+        padding:5px 10px 8px!important;
+        width:fit-content!important;
+        left:50%;
+        transform:translateX(-50%);
+        display: none;
+    }
+    .carousel-status{
+        display:none
+    }
