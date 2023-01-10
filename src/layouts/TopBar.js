@@ -49,7 +49,7 @@ const menuLinks = [
     isLink: true,
   },
   {
-    label: "Leaderboard",
+    label: "Transfer`s",
     href: "/user-list",
     isLink: true,
   },
@@ -432,93 +432,92 @@ export default function Header() {
 
               <Grid item >
                 <Box className={classes.searchBox} >
-                <InputBase
-                  placeholder="Search.."
-                  style={{ color: "#000" }}
-                  value={search}
-                  onChange={(e) => setsearch(e.target.value)}
-                  classes={{
-                    root: inputRoot,
-                    input: inputInput,
-                  }}
-                  inputProps={{ "aria-label": "search" }}
-                  endAdornment={
+                  <InputBase
+                    placeholder="Search.."
+                    style={{ color: "#000" }}
+                    value={search}
+                    onChange={(e) => setsearch(e.target.value)}
+                    classes={{
+                      root: inputRoot,
+                      input: inputInput,
+                    }}
+                    inputProps={{ "aria-label": "search" }}
+                    endAdornment={
 
-                    isLoading ? (
-                      <InputAdornment position="end">
-                        <img
-                          src="/loader/searchLoader.gif"
-                          alt=""
-                          style={{
-                            height: "27px",
-                            width: "30px",
-                          }}
-                        />
-                      </InputAdornment>
-                    ) : <SearchIcon style={{ marginRight: '10px' }} />
+                      isLoading ? (
+                        <InputAdornment position="end">
+                          <img
+                            src="/loader/searchLoader.gif"
+                            alt=""
+                            style={{
+                              height: "27px",
+                              width: "30px",
+                            }}
+                          />
+                        </InputAdornment>
+                      ) : <SearchIcon style={{ marginRight: '10px' }} />
 
-                  }
-                />
+                    }
+                  />
 
-                {search !== "" && <SearchResult />}
+                  {search !== "" && <SearchResult />}
 
-              </Box>
+                </Box>
               </Grid>
 
               <Grid item>
                 {getMenuButtons()}
               </Grid>
-              
-              
+
+
               <Grid item >
                 <Box className={flexButton}>
-                {ProfileId && (
-                  <Box>
-                    <Tooltip title="Chat" placement="bottom">
-                      <IconButton onClick={() => navigate("/chat/t")}>
-                        <Badge badgeContent={Object.keys(auth.unreadChats).length} overlap="rectangular" color="primary">
-                          <BsChat style={{ color: "#000" }} />
-                        </Badge>
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                )}
-                {ProfileId && (
-                  <Box>
-                    <Tooltip title="Notification" placement="bottom">
-                      <IconButton
-                        onClick={() => {
-                          readNotificationhandler();
-                          setOpenNotifications(true);
-                        }}
-                      >
-                        <Badge
-                          badgeContent={auth.unReadNotification}
-                          overlap="rectangular"
-                          color="primary"
+                  {ProfileId && (
+                    <Box>
+                      <Tooltip title="Chat" placement="bottom">
+                        <IconButton onClick={() => navigate("/chat/t")}>
+                          <Badge badgeContent={Object.keys(auth.unreadChats).length} overlap="rectangular" color="primary">
+                            <BsChat style={{ color: "#000" }} />
+                          </Badge>
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  )}
+                  {ProfileId && (
+                    <Box>
+                      <Tooltip title="Notification" placement="bottom">
+                        <IconButton
+                          onClick={() => {
+                            readNotificationhandler();
+                            setOpenNotifications(true);
+                          }}
                         >
-                          <NotificationsIcon
-                            style={{ color: "#000" }}
-                            size="12px"
-                          />
-                        </Badge>
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                )}
+                          <Badge
+                            badgeContent={auth.unReadNotification}
+                            overlap="rectangular"
+                            color="primary"
+                          >
+                            <NotificationsIcon
+                              style={{ color: "#000" }}
+                              size="12px"
+                            />
+                          </Badge>
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  )}
 
-                {
-                  auth.userLoggedIn ? <>
-                  <Tooltip
+                  {auth.userLoggedIn ? <>
+                    <Tooltip
                       title="My Profile"
                       placement="bottom"
                     >
-                       <Avatar onClick={() => navigate("/profile")}
-                        alt={auth.userData?.userName} 
-                        src={auth.userData?.profilePic} 
-                        style={{cursor: 'pointer', border: 'solid 3px #fff'}} />
+                      <Avatar onClick={() => navigate("/profile")}
+                        alt={auth.userData?.userName}
+                        src={auth.userData?.profilePic}
+                        style={{ cursor: 'pointer', border: 'solid 3px #fff' }} />
                     </Tooltip>
-                    
+
                     <Tooltip
                       title="My Setting"
                       placement="bottom"
@@ -533,31 +532,31 @@ export default function Header() {
                     >
                       Create on MAS
                     </Button>
-                }
+                  }
 
-                <Box>
-                  {auth.userLoggedIn ? (
+                  <Box>
+                    {auth.userLoggedIn ? (
 
-                    <Tooltip
-                      title="Logout"
-                      placement="bottom"
-                    >
-                      <IconButton onClick={() => setIsLogoutOpen(true)}>
-                        <AiOutlineLogout />
-                      </IconButton>
-                    </Tooltip>
-                  ) : (
-                    <Button
-                      onClick={() => navigate('/login')}
-                      variant="contained"
-                      size="22px"
-                      color="secondary"
-                    >
-                      Login
-                    </Button>
-                  )}
+                      <Tooltip
+                        title="Logout"
+                        placement="bottom"
+                      >
+                        <IconButton onClick={() => setIsLogoutOpen(true)}>
+                          <AiOutlineLogout />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Button
+                        onClick={() => navigate('/login')}
+                        variant="contained"
+                        size="22px"
+                        color="secondary"
+                      >
+                        Login
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
-              </Box>
               </Grid>
 
             </Grid>
@@ -571,7 +570,7 @@ export default function Header() {
   const [displayMobileSearch, setDisplayMobileSearch] = useState(false);
 
   const displayMobile = () => {
-    
+
     const handleDrawerOpen = () =>
       setState((prevState) => ({ ...prevState, drawerOpen: true }));
     const handleDrawerClose = () =>
@@ -588,44 +587,44 @@ export default function Header() {
         >
           {auth.userLoggedIn ?
             <Box m={2} display='flex'>
-            <Box className={classes.flexButton}>
-              <Tooltip title="My Profile" placement="bottom">
-                <Avatar onClick={() => navigate("/profile")}
-                        alt={auth.userData?.userName} 
-                        src={auth.userData?.profilePic} 
-                        style={{cursor: 'pointer', border: 'solid 3px #fff'}} />
-              </Tooltip>
-              <Tooltip title="Notification" placement="bottom">
-                <IconButton
-                  onClick={() => {
-                    readNotificationhandler();
-                    setOpenNotifications(true);
-                  }}
-                >
-                  <Badge
-                    badgeContent={auth.unReadNotification}
-                    overlap="rectangular"
-                    color="primary"
+              <Box className={classes.flexButton}>
+                <Tooltip title="My Profile" placement="bottom">
+                  <Avatar onClick={() => navigate("/profile")}
+                    alt={auth.userData?.userName}
+                    src={auth.userData?.profilePic}
+                    style={{ cursor: 'pointer', border: 'solid 3px #fff' }} />
+                </Tooltip>
+                <Tooltip title="Notification" placement="bottom">
+                  <IconButton
+                    onClick={() => {
+                      readNotificationhandler();
+                      setOpenNotifications(true);
+                    }}
                   >
-                    <NotificationsIcon
-                      style={{ color: "#000" }}
-                      size="12px"
-                    />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Chat" placement="bottom">
-                <IconButton onClick={() => navigate("/chat/t")}>
-                  <Badge badgeContent={Object.keys(auth.unreadChats).length} overlap="rectangular" color="primary">
-                    <BsChat style={{ color: "#000" }} />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Logout" placement="bottom" >
-                <IconButton onClick={() => setIsLogoutOpen(true)}>
-                  <AiOutlineLogout />
-                </IconButton>
-              </Tooltip>
+                    <Badge
+                      badgeContent={auth.unReadNotification}
+                      overlap="rectangular"
+                      color="primary"
+                    >
+                      <NotificationsIcon
+                        style={{ color: "#000" }}
+                        size="12px"
+                      />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Chat" placement="bottom">
+                  <IconButton onClick={() => navigate("/chat/t")}>
+                    <Badge badgeContent={Object.keys(auth.unreadChats).length} overlap="rectangular" color="primary">
+                      <BsChat style={{ color: "#000" }} />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Logout" placement="bottom" >
+                  <IconButton onClick={() => setIsLogoutOpen(true)}>
+                    <AiOutlineLogout />
+                  </IconButton>
+                </Tooltip>
               </Box></Box>
             : <><Button
               onClick={() => navigate('/login')}
@@ -636,17 +635,17 @@ export default function Header() {
             >
               Login
             </Button>
-            <Box marginTop={2}>
-            <Button
-              className={classes.createButton}
-              onClick={() => navigate("/profile")}
-            >
-              Create on MAS
-            </Button>
-          </Box></>
+              <Box marginTop={2}>
+                <Button
+                  className={classes.createButton}
+                  onClick={() => navigate("/profile")}
+                >
+                  Create on MAS
+                </Button>
+              </Box></>
           }
 
-          
+
 
           {getDrawerChoices()}
         </Drawer>
@@ -692,7 +691,7 @@ export default function Header() {
           </Grid>
 
           <Grid item xs={12} >
-            <Box className={classes.searchBox} display={displayMobileSearch? 'flex': 'none'}  >
+            <Box className={classes.searchBox} display={displayMobileSearch ? 'flex' : 'none'}  >
               <InputBase
                 placeholder="Search.."
                 style={{ color: "#000" }}

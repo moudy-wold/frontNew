@@ -528,7 +528,7 @@ export default function ProfileSettings() {
 
 
         {/*Start  Phone Number */}
-        {/* <Box mt={3}>
+        <Box mt={3}>
           <Grid container style={{ display: "block" }} spacing={2}
             direction="row"
             justifyContent="center"
@@ -557,7 +557,7 @@ export default function ProfileSettings() {
               />
             </Grid>
           </Grid>
-        </Box> */}
+        </Box>
         {/* End Phone Number */}
 
         {/* {needVerification.length > 0 && <VerificationAlert verify={needVerification} />} */}

@@ -321,7 +321,7 @@ export default function Profile({ data, isabout }) {
               <Box mt={2} mb={1} className={classes.textname}>
                 {/* {data?.referralCode && ( */}
                 <Typography variant="h6" className={classes.walletAndRefferal} style={{ color: '#000' }}>
-                  Referral{data?.referralCode} &nbsp;
+                  Referral : {data?.referralCode}&nbsp;
                   <CopyToClipboard
                     text={data?.referralCode}
                     style={{ cursor: "pointer" }}

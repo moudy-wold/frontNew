@@ -49,7 +49,8 @@ import {
 import NoDataFound from "src/component/NoDataFound";
 import { toast } from "react-toastify";
 import { FaTwitter } from "react-icons/fa";
-import {VerifyOtp} from "src/component/Modals/VerifyOtp"
+import { VerifyOtp } from "src/component/Modals/VerifyOtp"
+import Tabs from "./Tabs"
 
 const useStyles = makeStyles((theme) => ({
   profilebg: {
@@ -229,7 +230,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input_fild: {
     backgroundColor: "#ffffff6e",
-    
+
     border: " solid 0.5px #e5e3dd",
     color: "#141518",
     width: "100%",
@@ -262,7 +263,7 @@ const useStyles = makeStyles((theme) => ({
   walletActions: {
     display: "flex",
     marginBottom: "20px",
-    "& button":{
+    "& button": {
       margin: '10px'
     },
     "@media(max-width:600px)": {
@@ -283,19 +284,19 @@ const useStyles = makeStyles((theme) => ({
     "& h3": {
       "@media(max-width:600px)": {
         width: "100%",
-        textAlign:"center",
+        textAlign: "center",
       },
     },
     "& h5": {
       "@media(max-width:600px)": {
         width: "100%",
-        textAlign:"center",
+        textAlign: "center",
       },
     },
     "& button": {
       "@media(max-width:600px)": {
         width: "100%",
-        textAlign:"center",
+        textAlign: "center",
       },
     },
   },
@@ -325,62 +326,63 @@ export default function Profile() {
   const [totalEarning, setTotalEarning] = useState({});
 
 
-  if (user.isLogin && !user.userData){
+  if (user.isLogin && !user.userData) {
     user.updateUserData();
   }
 
-  useEffect( () => {
+  useEffect(() => {
     let timer1;
     function checkechecko() {
-      if (user.isLogin && user.userData._id){
-      if (!user.userData.emailVerification) {
-        navigate("/profilesettings");
+      if (user.isLogin && user.userData._id) {
+        if (!user.userData.emailVerification) {
+          navigate("/profilesettings");
+        }
+        return () => {
+          clearTimeout(timer1);
+        };
+      } else {
+        timer1 = setTimeout(() => {
+          checkechecko()
+        }, 200);
       }
-      return () => {
-        clearTimeout(timer1);
-      };
-    } else {
-      timer1 = setTimeout(() => {
-        checkechecko()
-      }, 200);
-    }}
+    }
     checkechecko()
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setAvailableBalance({
-      masBalance : parseFloat(user.userData?.masBalance),
-      busdBalance : parseFloat(user.userData?.busdBalance),
-      usdtBalance : parseFloat(user.userData?.usdtBalance),
+      masBalance: parseFloat(user.userData?.masBalance),
+      busdBalance: parseFloat(user.userData?.busdBalance),
+      usdtBalance: parseFloat(user.userData?.usdtBalance),
     });
-    
-  },[user.userData])
 
-  useEffect(()=>{
+  }, [user.userData])
+
+  useEffect(() => {
     setTotalEarning({
-      masBalance : parseFloat(user.userEarnings?.masBalance)+parseFloat(user.userEarnings?.referralBalance),
-      busdBalance : parseFloat(user.userEarnings?.busdBalance),
-      usdtBalance : parseFloat(user.userEarnings?.usdtBalance),
+      masBalance: parseFloat(user.userEarnings?.masBalance) + parseFloat(user.userEarnings?.referralBalance),
+      busdBalance: parseFloat(user.userEarnings?.busdBalance),
+      usdtBalance: parseFloat(user.userEarnings?.usdtBalance),
     });
-    
-  },[user.userEarnings])
+
+  }, [user.userEarnings])
 
   React.useMemo(() => {
-    setWithdrawFees(((parseFloat(user.userData?.withdrawFees)*parseFloat(withdrawAmount)/100)).toFixed(2));
+    setWithdrawFees(((parseFloat(user.userData?.withdrawFees) * parseFloat(withdrawAmount) / 100)).toFixed(2));
   }, [withdrawAmount]);
 
   const MAxWithdrawAmount = () => {
-    setWithdrawAmount((availableBalance[selectedToken.databaseKey] - availableBalance[selectedToken.databaseKey]*parseFloat(user.userData?.withdrawFees)/100).toFixed(2));
+    setWithdrawAmount((availableBalance[selectedToken.databaseKey] - availableBalance[selectedToken.databaseKey] * parseFloat(user.userData?.withdrawFees) / 100).toFixed(2));
   }
 
   const withdraw = async () => {
-    
+
     if (withdrawAmount === "") {
       setWithdrawError("Please enter Amount");
     } else if (withdrawAmount < 1) {
       setWithdrawError("Please enter valid amount (equal or greater than 1)");
     } else if (
-      parseFloat(withdrawAmount) + parseFloat(withdrawFees)  >= parseFloat(user.userData[selectedToken.databaseKey])
+      parseFloat(withdrawAmount) + parseFloat(withdrawFees) >= parseFloat(user.userData[selectedToken.databaseKey])
     ) {
       setWithdrawError(`${selectedToken.name} balance is low`);
     } else if (withdrawAddress === "") {
@@ -435,12 +437,13 @@ export default function Profile() {
 
   return (
     <Box>
+
       <Box className={classes.profilebg}
         style={
           user.userData && user.userData?.coverPic
             ? {
-                backgroundImage: `url(${user.userData?.coverPic})`,
-              }
+              backgroundImage: `url(${user.userData?.coverPic})`,
+            }
             : null
         }
       >
@@ -450,161 +453,162 @@ export default function Profile() {
         <Container maxWidth="xl">
           <Grid container spacing={3} alignItems='flex-end'>
             <Grid item xs={12} sm={4} md={4} lg={2}>
-                <Avatar
-                  src={
-                    user.userData && user.userData?.profilePic
-                      ? user.userData?.profilePic
-                      : `https://avatars.dicebear.com/api/miniavs/${user?.userData?._id}.svg`
-                  }
-                  style={{
-                    width: "120px",
-                    height: "120px",
-                    margin: '10px auto'
-                  }}
-                />
+              <Avatar
+                src={
+                  user.userData && user.userData?.profilePic
+                    ? user.userData?.profilePic
+                    : `https://avatars.dicebear.com/api/miniavs/${user?.userData?._id}.svg`
+                }
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  margin: '10px auto'
+                }}
+              />
               <Box className={classes.textbox}>
 
-                  <Typography align='center' variant="h3"
-                    style={{ textTransform: "capitalize" }}
-                  >
-                    {user.userData?.name
-                      ? user.userData?.name
-                      : user.userData?.userName}
-                      {user?.userData?.planType === "Gold" && (
-                        <img onClick={() => setOpenUserPlan(true)}
-                          src="/images/gold-check.svg"
-                          style={{ width: "30px", marginLeft: "5px" }}
-                        />
-                      )}
-                      {user?.userData?.planType === "Diamond" && (
-                        <img onClick={() => setOpenUserPlan(true)}
-                          src="/images/blue-check.svg"
-                          style={{ width: "30px", marginLeft: "5px" }}
-                        />
-                      )}
-                      {user?.userData?.planType === "Silver" && (
-                        <img onClick={() => setOpenUserPlan(true)}
-                          src="/images/white_check.svg"
-                          style={{ width: "30px", marginLeft: "5px" }}
-                        />
-                      )}
-                      {user?.userData?.planType === "Mas Plus" && (
-                        <img onClick={() => setOpenUserPlan(true)}
-                          src="/images/icon.png"
-                          style={{ width: "30px", marginLeft: "5px" }}
-                        />
-                      )}
-                  </Typography>
-                  <Typography align='center' variant="body2"
-                        component="p">
-                    {sortAddress(user?.userData?.ethAccount?.address)} &nbsp;
-                    {user?.userData?.ethAccount?.address && (
-                      <CopyToClipboard
-                        style={{ curser: "pointer" }}
-                        text={user?.userData?.ethAccount?.address}
-                      >
-                        <FiCopy onClick={() => toast.info("Copied")} />
-                      </CopyToClipboard>
-                    )}
-                  </Typography>
-
-                    <Typography align='center' variant="body2" component="p">
-                      {user &&
-                      user.userData &&
-                      user.userData?.followers?.length
-                        ? user.userData?.followers?.length
-                        : "0"} Subscriber{user.userData?.followers?.length > 1 ? "s":""}
-                    </Typography>
-                    <Typography align='center' variant="body2"
-                        component="p">
-                      Referral code : {user?.userData?.referralCode} &nbsp;
-                      <CopyToClipboard
-                      text={user?.userData?.referralCode}
-                      style={{ cursor: "pointer" }}
+                <Typography align='center' variant="h3"
+                  style={{ textTransform: "capitalize" }}
+                >
+                  {user.userData?.name
+                    ? user.userData?.name
+                    : user.userData?.userName}
+                  {user?.userData?.planType === "Gold" && (
+                    <img onClick={() => setOpenUserPlan(true)}
+                      src="/images/gold-check.svg"
+                      style={{ width: "30px", marginLeft: "5px" }}
+                    />
+                  )}
+                  {user?.userData?.planType === "Diamond" && (
+                    <img onClick={() => setOpenUserPlan(true)}
+                      src="/images/blue-check.svg"
+                      style={{ width: "30px", marginLeft: "5px" }}
+                    />
+                  )}
+                  {user?.userData?.planType === "Silver" && (
+                    <img onClick={() => setOpenUserPlan(true)}
+                      src="/images/white_check.svg"
+                      style={{ width: "30px", marginLeft: "5px" }}
+                    />
+                  )}
+                  {user?.userData?.planType === "Mas Plus" && (
+                    <img onClick={() => setOpenUserPlan(true)}
+                      src="/images/icon.png"
+                      style={{ width: "30px", marginLeft: "5px" }}
+                    />
+                  )}
+                </Typography>
+                <Typography align='center' variant="body2"
+                  component="p">
+                  {sortAddress(user?.userData?.ethAccount?.address)} &nbsp;
+                  {user?.userData?.ethAccount?.address && (
+                    <CopyToClipboard
+                      style={{ curser: "pointer" }}
+                      text={user?.userData?.ethAccount?.address}
                     >
-                      <FiCopy onClick={() => toast.success("Referral code Copied")} />
+                      <FiCopy onClick={() => toast.info("Copied")} />
                     </CopyToClipboard>
-                    </Typography>
-                    <Button style={{marginTop: "6px", maxWidth:"100px"}} onClick={() => setOpenShare(true)}>
-                      Share
-                    </Button>  
+                  )}
+                </Typography>
+
+                <Typography align='center' variant="body2" component="p">
+                  {user &&
+                    user.userData &&
+                    user.userData?.followers?.length
+                    ? user.userData?.followers?.length
+                    : "0"} Subscriber{user.userData?.followers?.length > 1 ? "s" : ""}
+                </Typography>
+                <Typography align='center' variant="body2"
+                  component="p">
+                  Referral code : {user?.userData?.referralCode} &nbsp;
+                  <CopyToClipboard
+                    text={user?.userData?.referralCode}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FiCopy onClick={() => toast.success("Referral code Copied")} />
+                  </CopyToClipboard>
+                </Typography>
+                <Button style={{ marginTop: "6px", maxWidth: "100px" }} onClick={() => setOpenShare(true)}>
+                  Share
+                </Button>
               </Box>
             </Grid>
 
             <Grid item xs={12} sm={8} md={8} lg={5}>
-                <Box display='flex' justifyContent='flex-end' alignContent='center'>
-                  
-                  <Box className={classes.walletActions}>
-                      <Button
-                        variant="contained"
-                        size="large"
-                        color="primary"
-                        onClick={() => setOpenDeposit(true)}
-                      >
-                        Deposit
-                      </Button>
-                      <Button
-                        variant="contained"
-                        size="large"
-                        color="secondary"
-                        onClick={() => setOpenWithdraw(true)}
-                      >
-                        Withdraw
-                      </Button>
-                    <IconButton
-                      onClick={()=> navigate("/profilesettings")}
-                    >
-                      <AiFillSetting />
-                    </IconButton>
-                  </Box>
+              <Box display='flex' justifyContent='flex-end' alignContent='center'>
+
+                <Box className={classes.walletActions}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => setOpenDeposit(true)}
+                  >
+                    Deposit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="secondary"
+                    onClick={() => setOpenWithdraw(true)}
+                  >
+                    Withdraw
+                  </Button>
+                  <IconButton
+                    onClick={() => navigate("/profilesettings")}
+                  >
+                    <AiFillSetting />
+                  </IconButton>
                 </Box>
-                <Typography
-                      variant="h5"
-                      component="h5"
-                    >
-                     TOTAL BALANCE
-                    </Typography>
-                <BalanceBox 
-                  availableBalance={availableBalance} 
-                  tokensDetails={tokensDetails}
-                  setSelectedToken={setSelectedToken} 
-                />
+              </Box>
+              <Typography
+                variant="h5"
+                component="h5"
+              >
+                TOTAL BALANCE
+              </Typography>
+              <BalanceBox
+                availableBalance={availableBalance}
+                tokensDetails={tokensDetails}
+                setSelectedToken={setSelectedToken}
+              />
             </Grid>
 
             <Grid item xs={12} sm={12} md={12} lg={5}>
-             
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4} md={3}>
-                    <Paper elevation={1}
-                      align="center" style={{height:'100%', paddingTop:'20px'}}
-                    >
-                      <Typography variant="h5" className={classes.userno}>
-                        <FaUserFriends />
-                        {user.userData && user.userData?.supporters?.length}
-                      </Typography>
-                      <Typography variant="span">
-                        Supporter{user.userData?.supporters?.length > 1 ? "s": ""}
-                      </Typography>
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={9}>
-                    <Typography
-                      variant="h5"
-                      component="h5"
-                    >
-                      TOTAL CREATE & EARN
+
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={4} md={3}>
+                  <Paper elevation={1}
+                    align="center" style={{ height: '100%', paddingTop: '20px' }}
+                  >
+                    <Typography variant="h5" className={classes.userno}>
+                      <FaUserFriends />
+                      {user.userData && user.userData?.supporters?.length}
                     </Typography>
-                    <BalanceBox 
-                      availableBalance={totalEarning} 
-                      tokensDetails={tokensDetails}
-                      setSelectedToken={setSelectedToken} 
-                    />
-                  </Grid>
+                    <Typography variant="span">
+                      Supporter{user.userData?.supporters?.length > 1 ? "s" : ""}
+                    </Typography>
+                  </Paper>
                 </Grid>
-              
+                <Grid item xs={12} sm={8} md={9}>
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                  >
+                    TOTAL CREATE & EARN
+                  </Typography>
+                  <BalanceBox
+                    availableBalance={totalEarning}
+                    tokensDetails={tokensDetails}
+                    setSelectedToken={setSelectedToken}
+                  />
+                </Grid>
+              </Grid>
+
             </Grid>
-           
+
           </Grid>
+          <Tabs />
         </Container>
       </Box>
 
@@ -664,21 +668,21 @@ export default function Profile() {
                   Close
                 </Button>
               </Box>
-              
+
             </Container>
           </DialogContentText>
         </DialogContent>
       </Dialog>
 
-      <VerifyOtp 
-        open={verifyOTPOpen} 
-        handleClose={()=> setVerifyOTPOpen(false)}
+      <VerifyOtp
+        open={verifyOTPOpen}
+        handleClose={() => setVerifyOTPOpen(false)}
         channels={['email']}
         context={'withdraw'}
         emailVerificationSent={false}
         smsVerificationSent={false}
         payload={withdrawTx}
-        successCallback={()=>{
+        successCallback={() => {
           setVerifyOTPOpen(false);
           toast.success("Withdrawal successful!");
         }}
@@ -709,29 +713,29 @@ export default function Profile() {
               style={{ color: "#000" }}
             >
               <>
-              Please make sure the Wallet address is BEP20 <br/>
-              (Transaction will be sent in BSC Network)
+                Please make sure the Wallet address is BEP20 <br />
+                (Transaction will be sent in BSC Network)
               </>
             </Typography>
-            <BalanceBox 
-              availableBalance={availableBalance} 
+            <BalanceBox
+              availableBalance={availableBalance}
               tokensDetails={tokensDetails}
-              setSelectedToken={setSelectedToken} 
+              setSelectedToken={setSelectedToken}
             />
             <Container maxWidth="md">
-            <Box mt={4}>
+              <Box mt={4}>
                 <Input
                   placeholder="Wallet Address"
                   value={withdrawAddress}
                   className={classes.input_fild2}
                   onChange={(e) => setWithdrawAddress(e.target.value)}
-                  
+
                 />
               </Box>
               <Box mt={4}>
                 <Input
                   value={withdrawAmount}
-                  placeholder={"Minimum amount 10 "+selectedToken?.name?.toString()}
+                  placeholder={"Minimum amount 10 " + selectedToken?.name?.toString()}
                   className={classes.input_fild2}
                   type="number"
                   min={10}
@@ -741,12 +745,12 @@ export default function Profile() {
                       position="end"
                       onClick={() => setOpenSelectToken(true)}
                     >
-                      
-                        <Box style={{ cursor: "pointer" }}>
-                          <img src={selectedToken?.img} alt="" width="20px"/>
-                          <ArrowDropDownIcon style={{ cursor: "pointer" }} />
-                        </Box>
-                      
+
+                      <Box style={{ cursor: "pointer" }}>
+                        <img src={selectedToken?.img} alt="" width="20px" />
+                        <ArrowDropDownIcon style={{ cursor: "pointer" }} />
+                      </Box>
+
                     </InputAdornment>
                   }
                 />
@@ -754,24 +758,24 @@ export default function Profile() {
                   variant="body2"
                   align="left"
                   style={{ color: "#000" }}
-                > 
+                >
                   <span onClick={() => MAxWithdrawAmount()} >
-                    Available: {availableBalance[selectedToken.databaseKey]?.toFixed(2)} {selectedToken.name} 
+                    Available: {availableBalance[selectedToken.databaseKey]?.toFixed(2)} {selectedToken.name}
                   </span>
                 </Typography>
-                
+
               </Box>
-              
+
               <Box mt={2} mb={4}>
                 <Typography
                   variant="body2"
                   align="left"
                   style={{ color: "#000" }}
-                > 
-                  <span>Withdraw fees: {withdrawAmount ? <span>{withdrawFees} {selectedToken.name}</span> : user.userData?.withdrawFees+"%" } </span>
-                  <br/>
-                  { withdrawAmount ? 
-                  <strong>Amount + Fees: {parseFloat(withdrawAmount) + parseFloat(withdrawFees)} {selectedToken.name}</strong> : ""
+                >
+                  <span>Withdraw fees: {withdrawAmount ? <span>{withdrawFees} {selectedToken.name}</span> : user.userData?.withdrawFees + "%"} </span>
+                  <br />
+                  {withdrawAmount ?
+                    <strong>Amount + Fees: {parseFloat(withdrawAmount) + parseFloat(withdrawFees)} {selectedToken.name}</strong> : ""
                   }
                 </Typography>
                 <Button
@@ -781,20 +785,20 @@ export default function Profile() {
                   onClick={withdraw}
                   disabled={loader || !withdrawAmount || !selectedToken}
                 >
-                  {loader ? "Pending..." : `Withdraw` }
+                  {loader ? "Pending..." : `Withdraw`}
                   {loader && <ButtonCircularProgress />}
                 </Button>
                 <Typography
                   variant="body2"
                   align="center"
                   style={{ color: "#f22" }}
-                > 
-                <span>{withdrawError}</span>
+                >
+                  <span>{withdrawError}</span>
                 </Typography>
-                
+
               </Box>
             </Container>
-            
+
           </DialogContentText>
         </DialogContent>
       </Dialog>
@@ -836,7 +840,7 @@ export default function Profile() {
           })}
         </DialogContent>
       </Dialog>
-      
+
       <UserPlanListPopup open={openUserPlan} handleClose={handleCloseUserPlanModal} />
 
       <Dialog
@@ -859,7 +863,7 @@ export default function Profile() {
               align="center"
               style={{ color: "#000" }}
             >
-              
+
               You can share your link now anywhere!
             </Typography>
 

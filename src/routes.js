@@ -17,6 +17,12 @@ export const routes = [
     ),
   },
   {
+    path: "/profile",
+    element: lazy(() =>
+      import("src/views/pages/Profile/Profile")
+    ),
+  },
+  {
     path: "/create-account",
     element: lazy(() =>
       import("src/views/pages/UserSignUp/register")

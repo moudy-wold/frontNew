@@ -251,7 +251,7 @@ export default function SignUp() {
             />
           </Box>
           {/* Start Phone Number */}
-          {/* <Box>
+          <Box>
             <label className={classes.labelText}>
               Phone number
             </label>
@@ -271,7 +271,7 @@ export default function SignUp() {
               }}
               onBlur={() => setphonevalid(phone == "" || isValidPhoneNumber(phone))}
             />
-          </Box> */}
+          </Box>
           {/* End Phone Number */}
 
           <Box>

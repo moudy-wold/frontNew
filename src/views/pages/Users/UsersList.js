@@ -23,6 +23,8 @@ import Loader from "src/component/Loader";
 import { Pagination } from "@material-ui/lab";
 import ChildTableUser from "../../../component/userRow";
 import { UserContext } from "src/context/User";
+import { isMobile } from 'react-device-detect';
+
 const useStyles = makeStyles(() => ({
   LoginBox: {
     paddingBottom: "50px",
@@ -48,7 +50,8 @@ const useStyles = makeStyles(() => ({
     },
   },
   paddingContainer: {
-    padding: "10px 30px",
+    padding: "0px 30px",
+    marginTop: "-30px",
   },
   table: {
     minWidth: 320,
@@ -57,9 +60,11 @@ const useStyles = makeStyles(() => ({
     border: "1px solid #e5e3dd",
     "& th": {
       border: "1px solid #e5e3dd",
+      padding: "10px!important",
     },
     "& td": {
       border: "1px solid #e5e3dd",
+      padding: "6px!important",
     },
   },
   createButton: {
@@ -90,12 +95,20 @@ const useStyles = makeStyles(() => ({
       display: "block",
     },
   },
+  ss: {
+    width: "700px!important",
+  },
   ranking: {
     padding: "1px!important"
   },
   profile: {
     padding: "1px!important",
   },
+  input_fild2: {
+    "&:before": {
+      width: "0!important"
+    },
+  }
 }));
 
 export default function UsersList() {
@@ -149,42 +162,62 @@ export default function UsersList() {
       <Box className={classes.LoginBox} mb={5}>
         {/* Start Title */}
         <Box className={classes.masBoxFlex}>
-          <Typography variant="h6">Leaderboard & Ranking</Typography>
+          {/* {isMobile ? "" : <Typography variant="h6">Users</Typography>} */}
+          <Box variant="h6" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+            <span style={{ fontSize: "22px", fontWeight: "700" }}>
+              Users
+            </span>
+            <Input
+              placeholder="Find User"
+              className={classes.input_fild2}
+              value={filterData.searchKey}
+              style={{ width: "180px", marginLeft: "110px", border: "1px solid #DDD", borderRadius: "10px", padding: "2px 5px" }}
+              type="text"
+              name="searchKey"
+              onChange={_onInputChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </Box>
         </Box>
         {/* End Title */}
 
         {/* Start Serach */}
-        <Box className={classes.whitebox}>
-          <Container>
-            <Box className={classes.idtxt}>
-              <Grid container spacing={0}>
-                <Grid item xs={12} md={8} className={classes.dlflex}>
-                  <label style={{ padding: "0px" }}>Search</label>
-                  <Input
-                    placeholder="Search by wallet Address or name"
-                    className={classes.input_fild2}
-                    value={filterData.searchKey}
-                    fullWidth
-                    type="text"
-                    name="searchKey"
-                    onChange={_onInputChange}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <SearchIcon />
-                      </InputAdornment>
-                    }
-                  />
+        {/* {!isMobile &&
+          <Box className={classes.whitebox}>
+            <Container>
+              <Box className={classes.idtxt}>
+                <Grid container spacing={0}>
+                  <Grid item xs={12} md={8} className={classes.dlflex}>
+                    {isMobile ? "" : <label style={{ padding: "0px" }}>Search</label>}
+                    <Input
+                      placeholder="Search by wallet Address or name"
+                      className={classes.input_fild2}
+                      value={filterData.searchKey}
+                      fullWidth
+                      type="text"
+                      name="searchKey"
+                      onChange={_onInputChange}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <SearchIcon />
+                        </InputAdornment>
+                      }
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
 
 
-            </Box>
-          </Container>
-        </Box>
+              </Box>
+            </Container>
+          </Box>} */}
         {/*End Serach */}
 
         {/* Start Table */}
-        <TableContainer className={classes.Paper} component={Paper}>
+        <TableContainer style={isMobile ? { width: "400px!important" } : { width: "100%" }} component={Paper}>
           <Table className={classes.table} aria-label="simple table">
 
             {/* Start Head */}
@@ -194,16 +227,16 @@ export default function UsersList() {
               }}
             >
               <TableRow>
-                <TableCell className={classes.ranking} align="Center" style={{ color: "white", padding: "1px" }}>
-                  Ranking
+                <TableCell className={classes.ranking} align="Center" style={{ color: "white", padding: "1px", width: "10px!important" }}>
+                  Img
                 </TableCell>
                 <TableCell className={classes.profile} align="Center" style={{ color: "white" }}>
-                  Profile info
+                  Name
                 </TableCell>
                 <TableCell align="Center" style={{ color: "white" }}>
                   Action
                 </TableCell>
-                <TableCell align="Center" style={{ color: "white" }}>
+                <TableCell align="Center" style={{ color: "white", fontSize: "10px" }}>
                   Wallet Address
                 </TableCell>
                 <TableCell align="Center" style={{ color: "white" }}>

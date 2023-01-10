@@ -51,6 +51,7 @@ const useStyles = makeStyles(() => ({
   },
   paddingContainer: {
     padding: "10px 30px",
+
   },
   table: {
     minWidth: 320,
@@ -147,7 +148,7 @@ export default function UsersList() {
         <Box className={classes.masBoxFlex}>
           <Typography variant="h6">Users List</Typography>
         </Box>
-       
+
         <Box className={classes.whitebox}>
           <Container>
             <Box className={classes.idtxt}>
@@ -164,7 +165,7 @@ export default function UsersList() {
                     onChange={_onInputChange}
                     endAdornment={
                       <InputAdornment position="end">
-                          <SearchIcon />
+                        <SearchIcon />
                       </InputAdornment>
                     }
                   />
@@ -187,13 +188,13 @@ export default function UsersList() {
                   </Box>
                 </Grid>
               </Grid>
-              
+
             </Box>
           </Container>
         </Box>
         <TableContainer className={classes.Paper} component={Paper}>
           <Table className={classes.table} aria-label="simple table">
-          <TableHead
+            <TableHead
               style={{
                 background: "linear-gradient(180deg, #c04848 0%, #480048 100%)",
               }}
@@ -222,8 +223,8 @@ export default function UsersList() {
             <TableBody>
               {allUserList &&
                 allUserList?.map((row, index) => (
-                    (row._id != auth.userData._id) && 
-                    <ChildTableUser row={row} index={index} key={index} />
+                  (row._id != auth.userData._id) &&
+                  <ChildTableUser row={row} index={index} key={index} />
                 ))}
             </TableBody>
           </Table>
@@ -234,13 +235,13 @@ export default function UsersList() {
             <NoDataFound />
           )}
         </Box>
-          <Box mb={2} mt={2} display="flex" justifyContent="center">
-            <Pagination
-              count={pages}
-              page={page}
-              onChange={(e, v) => setPage(v)}
-            />
-          </Box>
+        <Box mb={2} mt={2} display="flex" justifyContent="center">
+          <Pagination
+            count={pages}
+            page={page}
+            onChange={(e, v) => setPage(v)}
+          />
+        </Box>
       </Box>
     </Box>
   );
