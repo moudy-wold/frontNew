@@ -15,10 +15,11 @@ import UserDetails from "./UserDetails";
 import SoldBuyList from "./SoldBuyList";
 import DonationsList from "./DonateList";
 import TransactionHistory from "./TransactionsList";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(() => ({
   Padding_Top: {
-    paddingTop: "50px",
+    paddingTop: isMobile ? "15px" : "30px",
     backgroundColor: "#fff",
     minHeight: "100vh"
   },

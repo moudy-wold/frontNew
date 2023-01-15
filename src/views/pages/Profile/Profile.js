@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%",
     backgroundPosition: "center center",
-    height: " 143.5px",
+    height: " 95px",
     width: "100%",
     position: "relative",
   },
@@ -560,12 +560,14 @@ export default function Profile() {
                     variant="contained"
                     size="large"
                     color="primary"
+                    style={{ width: "40%", fontSize: "15px" }}
                     onClick={() => setOpenDeposit(true)}
                   >
                     Deposit
                   </Button>
                   <Button
                     variant="contained"
+                    style={{ width: "40%", fontSize: "15px" }}
                     size="large"
                     color="secondary"
                     onClick={() => setOpenWithdraw(true)}
@@ -587,20 +589,24 @@ export default function Profile() {
                 TOTAL BALANCE
               </Typography>
               {/* End Title Total Balance*/}
+              {/* Start Token For Total balance */}
               <BalanceBox
                 availableBalance={availableBalance}
                 tokensDetails={tokensDetails}
                 setSelectedToken={setSelectedToken}
               />
+              {/* End Token For Total balance */}
+
             </Grid>
             {/* End Buttons Deposite Share */}
 
-            <Grid item xs={12} sm={12} md={12} lg={5}>
+            <Grid item xs={12} sm={12} md={12} lg={5} style={{ padding: "0px!important" }} >
 
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={4} md={3}>
+              <Grid container spacing={2} style={{ padding: "0px!important" }} >
+                {/* Start Supporter */}
+                <Grid item xs={12} sm={4} md={3} style={{ padding: "0px 10px", }}>
                   <Paper elevation={1}
-                    align="center" style={{ height: '100%', paddingTop: '20px' }}
+                    align="center" style={{ height: '100%', paddingTop: '0px', borderRadius: "13px" }}
                   >
                     <Typography variant="h5" className={classes.userno}>
                       <FaUserFriends />
@@ -611,6 +617,9 @@ export default function Profile() {
                     </Typography>
                   </Paper>
                 </Grid>
+                {/* End Supporter */}
+
+                {/* Start Total Create */}
                 <Grid item xs={12} sm={8} md={9}>
                   <Typography
                     variant="h5"
@@ -624,6 +633,8 @@ export default function Profile() {
                     setSelectedToken={setSelectedToken}
                   />
                 </Grid>
+                {/* End Total Create */}
+
               </Grid>
 
             </Grid>

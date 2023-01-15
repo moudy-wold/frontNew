@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   token: {
     textAlign: 'center',
     padding: '5px 0',
+    borderRadius: "20px",
     '& p': {
       fontSize: '14px',
       fontWeight: '500',

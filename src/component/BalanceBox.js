@@ -9,6 +9,7 @@ import BalanceBadge from "src/component/BalanceBadge";
 
 const useStyles = makeStyles(() => ({
   masBox: {
+    borderRadius: "13px",
     padding: "0px",
     "& ul": {
       display: "flex",
@@ -45,7 +46,7 @@ export default function BalanceBox({ availableBalance, tokensDetails, setSelecte
         {tokensDetails.map((d, i) => {
           return (
             <ListItem p={0}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", borderRadius: "20px" }}
               onClick={() => { setSelectedToken(d) }}
               key={i}>
               <BalanceBadge
