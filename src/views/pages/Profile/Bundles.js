@@ -29,7 +29,7 @@ import { tokensDetails } from "src/constants";
 const useStyles = makeStyles((theme) => ({
   input_fild: {
     backgroundColor: "#ffffff6e",
-    
+
     border: " solid 0.5px #e5e3dd",
     color: "#141518",
     // height: "48px",
@@ -181,6 +181,7 @@ export default function Bundles({ bundles, updateList }) {
             size="large"
             color="primary"
             component={Link}
+            style={{ marginRight: "10px" }}
             to="/share-audience"
           >
             share for audience
@@ -208,7 +209,7 @@ export default function Bundles({ bundles, updateList }) {
           {bundles.map((data, i) => {
             return (
               <Grid item key={i} lg={3} md={4} sm={6} xm={12}>
-                
+
                 <BundleCard
                   data={data}
                   index={i}
@@ -301,8 +302,8 @@ export const AddBundlePopup = ({ open, handleClose, callbackFun }) => {
           setprocess(false);
           toast.error("error");
         }
- 
-      } catch(err) {
+
+      } catch (err) {
         console.log(err);
       }
     }
@@ -412,7 +413,7 @@ export const AddBundlePopup = ({ open, handleClose, callbackFun }) => {
                   {tokensDetails.map((data, i) => {
                     return (
                       <Box
-                      key={i}
+                        key={i}
                         mt={3}
                         onClick={() => {
                           {
@@ -572,7 +573,7 @@ export const AddBundlePopup = ({ open, handleClose, callbackFun }) => {
               </Box>
               {isSubmit && details === "" && (
                 <FormHelperText error>
-                  
+
                   Please enter valid details
                 </FormHelperText>
               )}

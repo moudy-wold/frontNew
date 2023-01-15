@@ -192,7 +192,7 @@ const AuctionPage = () => {
 
   return (
     <>
-      <Container maxWidth='100%' style={{ padding: "20px 50px" }}>
+      <Container maxWidth='100%' style={{ padding: "20px 25px" }}>
         <div id="creators_section" className={classes.sectionHeading}>
           <Typography variant="h2" component='h2'
             onClick={() => navigate("/creators")}
@@ -202,7 +202,9 @@ const AuctionPage = () => {
           </Typography>
         </div>
         {/* Start Creators Carousel  */}
-        <Carousel infiniteLoop={false} centerMode={true} centerSlidePercentage={isMobile ? 95.5 : 20} numItemsPerView={5}>
+
+        <Carousel infiniteLoop={false} centerMode={true} centerSlidePercentage={isMobile ? 90 : 20} numItemsPerView={5}>
+
           {userListToDisplay.map((data, i) => {
             return (
               <UserDetailsCard key={i}

@@ -13,7 +13,7 @@ import {
   AlertTitle
 } from "@material-ui/lab";
 import { green, red } from '@material-ui/core/colors';
-
+import "./style.css";
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -27,6 +27,8 @@ import { toast } from "react-toastify";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import SocialAccounts from "./SocialAccounts";
 import { VerifyOtp } from "src/component/Modals/VerifyOtp"
+
+import { isMobile } from 'react-device-detect';
 
 const useStyles = makeStyles((theme) => ({
   LoginBox: {
@@ -55,13 +57,33 @@ const useStyles = makeStyles((theme) => ({
   },
   Button: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     paddingBottom: "25px",
   },
   ButtonBtn: {
     paddingTop: "30px",
     paddingRight: "10px",
-    width: "200px",
+    width: "fit-content",
+    "& a": {
+      height: "41px!important",
+      width: "115px",
+      // fontSize:"16px",
+
+      padding: "5px 16px",
+    },
+  },
+  ButtonBtn1: {
+    paddingTop: "30px",
+    paddingRight: "10px",
+    width: "fit-content",
+    "& button": {
+      height: "41px!important",
+      // fontSize:"16px",
+      width: "120px",
+      padding: "5px 16px",
+
+
+    },
   },
   name: {
     display: "flex",
@@ -78,9 +100,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputbox: {
-    width: "100%",
+    width: "10s0%",
     height: "120px",
-    // border: "1px solid green",
+    borderRadius: "120px",
 
 
   },
@@ -89,7 +111,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     // marginTop: "-75px",
     width: "fit-content",
-    padding: "20px",
+    padding: "5px 20px",
+    marginBottom: "10px"
   },
   coverpic: {
     width: "100%",
@@ -126,18 +149,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   profilePic: {
+    width: "320px",
     position: "relative",
-    marginTop: "10px",
-    display: "flex",
+    margin: "auto",
+    display: "block",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "250px",
-    height: "120px",
+    // height: "120px",
     borderRadius: "50%",
     // padding: "10px",
     "& img": {
-      width: "124px",
-      height: "124px",
+      width: "200px!important",
+      height: "200px",
       marginRight: "10px",
       borderRadius: "50%",
     },
@@ -152,7 +175,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Box: {
     width: "100%",
-    height: "125px",
+    height: isMobile ? "80px" : "200px",
     backgroundImage: "linear-gradient(to bottom, #c04848, #480048)",
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%",
@@ -178,7 +201,19 @@ const useStyles = makeStyles((theme) => ({
   parentOfInput: {
     // width: "80%",
     marginLeft: "20px",
-    marginTop: "20px",
+    marginTop: "25px",
+    "& div:before": {
+      width: "0px"
+    },
+    "& div:after": {
+      width: "91%",
+      left: "18px",
+      borderRadius: "20px",
+    }
+  },
+  parentOfInput1: {
+    marginLeft: "0px",
+    marginTop: "0px",
     "& div:before": {
       width: "0px"
     },
@@ -189,15 +224,17 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   phoneEmail: {
-    marginLeft: "20px",
-    marginTop: "20px",
+    width: "97%",
+    marginLeft: "10px",
+    marginTop: "0px",
     "& div": {
       borderRadius: "15px",
       padding: "10px",
     }
   },
   linkBox: {
-    marginLeft: "20px",
+    width: "95%",
+    marginLeft: "14px",
     marginTop: "20px",
     fontSize: "16px",
     color: "#777",
@@ -206,11 +243,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     justifyContent: "space-between",
     display: "flex",
+    flexWrap: "wrap",
     alignItems: "center",
     paddingRight: "15px",
     "& span": {
       color: "#777",
-      fontSize: "15px"
+      fontSize: "13px"
     }
   }
 }));
@@ -227,7 +265,7 @@ const VerificationAlert = ({ verify }) => {
 
   const [verifyOTPOpen, setVerifyOTPOpen] = useState(false);
   return (
-    <box>
+    <Box style={{ width: "340px", marginLeft: "17px", marginBottom: "10px" }} >
       <Alert severity="warning" variant="outlined">
         <AlertTitle>Security Verification</AlertTitle>
         To secure your account and enjoy full MAS Platform features please verify
@@ -238,8 +276,9 @@ const VerificationAlert = ({ verify }) => {
         <Button
           variant="text"
           onClick={() => setVerifyOTPOpen(true)}
+          style={{ color: "red" }}
         >
-          check here!
+          Click here!
         </Button>
       </Alert>
       <VerifyOtp
@@ -255,7 +294,7 @@ const VerificationAlert = ({ verify }) => {
           toast.success("Security Verification complete!");
         }}
       />
-    </box>
+    </Box>
   )
 }
 
@@ -406,10 +445,10 @@ export default function ProfileSettings() {
             <img
               src={profilePic || "/images/users/profilepic1.svg"}
               alt="Edit profile picture"
-              style={profilePic ? { padding: "4px", border: "dotted 2px red" } : { border: "dotted 2px red", marginTop: "3px" }}
+              style={profilePic ? { padding: "4px", border: "dotted 2px red", display: "block", width: "fit-content", margin: "auto", } : { border: "dotted 2px red", marginTop: "3px", display: "block", width: "fit-content", margin: "auto", }}
             />
-            <Box style={{ paddign: "" }}>
-              <FiEdit style={{ cursor: "pointer" }} /> Edit Picture
+            <Box style={{ width: "fit-content", margin: "15px auto" }}>
+              <FiEdit style={{ cursor: "pointer" }} /> Add Picture
               <input
                 type="file"
                 accept="image/*"
@@ -424,10 +463,8 @@ export default function ProfileSettings() {
           </Box>
         </Box>
         {/* End Profile Img */}
-
-
         {/* Start Name */}
-        <Box mt={3}>
+        <Box mt={0} style={{ marginTop: "-15px" }}>
           <Grid container spacing={1} alignItems="center" >
             <Grid item xs={12} md={3}>
               <label className={classes.title}>Name</label>
@@ -445,9 +482,8 @@ export default function ProfileSettings() {
           </Grid>
         </Box>
         {/* End Name */}
-
         {/* Start Specilaity */}
-        <Box mt={3}>
+        <Box mt={0}>
           <Grid container style={{ display: "block" }} spacing={1}>
             <Grid item xs={12} md={3}>
               <label className={classes.title}>Speciality</label>
@@ -468,24 +504,26 @@ export default function ProfileSettings() {
         {/* End Speciality */}
 
         {/* Start About Me */}
-        <Box mt={3}>
+        <Box mt={0}>
           <Grid container spacing={1} style={{ alignItems: "center" }}>
             <Grid item xs={12} style={{ marginBottom: "15px" }} >
               <label className={classes.title}>About me</label>
             </Grid>
 
-            <Grid item xs={12} className={classes.textArea}>
+            <Grid item xs={12} className={classes.parentOfInput1}>
+
               <TextField
                 id="outlined-multiline-static"
+                value={bio}
                 focused="true"
                 multiline
-                rows={4}
-                value={bio}
                 // error={!bio}
                 // helperText={!bio && "Please Fill in something about you"}
-                variant="outlined"
-                className={classes.inputbox}
+                required="false"
                 onChange={(e) => setbio(e.target.value)}
+                className={classes.input_fild2}
+                rows={2}
+                style={{ border: "1px solid #DDD", borderRadius: "14px", width: "95%", marginLeft: "20px" }}
               />
             </Grid>
           </Grid>
@@ -493,12 +531,12 @@ export default function ProfileSettings() {
         {/* End About Me */}
 
         {/* Start Email */}
-        <Box mt={3} mb={3}>
+        <Box mt={0} mb={0} style={{ width: "93%!important" }}>
           <Grid container style={{ display: "block" }} spacing={2}
             direction="row"
             justifyContent="center"
             alignItems="center">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={0}>
               <label className={classes.title}>Email</label>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -528,12 +566,12 @@ export default function ProfileSettings() {
 
 
         {/*Start  Phone Number */}
-        <Box mt={3}>
+        <Box mt={0}>
           <Grid container style={{ display: "block" }} spacing={2}
             direction="row"
             justifyContent="center"
             alignItems="center">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={0}>
               <label className={classes.title}>Phone Number</label>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -560,10 +598,10 @@ export default function ProfileSettings() {
         </Box>
         {/* End Phone Number */}
 
-        {/* {needVerification.length > 0 && <VerificationAlert verify={needVerification} />} */}
+        {needVerification.length == 0 && <VerificationAlert verify={needVerification} />}
 
         {/* Start profile URL */}
-        <Box mt={3}>
+        <Box mt={0}>
           <Grid container style={{ display: "block" }} spacing={2}
             direction="row"
             justifyContent="center"
@@ -653,13 +691,14 @@ export default function ProfileSettings() {
               </Button>
             </Box>
 
-            <Box className={classes.ButtonBtn}>
+            <Box className={classes.ButtonBtn1}>
               <Button
                 variant="contained"
                 size="large"
                 color="secondary"
                 disabled={isLoading}
                 onClick={updateProfile}
+                style={{ padding: "10px 20px!important" }}
               >
                 {isLoading ? "Updating..." : "Update"}
                 {isLoading && <ButtonCircularProgress />}

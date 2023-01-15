@@ -19,7 +19,7 @@ export const routes = [
   {
     path: "/profile",
     element: lazy(() =>
-      import("src/views/pages/Profile/Profile")
+      import("src/views/pages/Profile/index")
     ),
   },
   {

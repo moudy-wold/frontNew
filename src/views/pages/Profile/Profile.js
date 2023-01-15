@@ -300,7 +300,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-
+  title: {
+    border: "1px solid #DDD",
+    borderRadius: "15px",
+    padding: "4px 10px"
+  },
 }));
 
 export default function Profile() {
@@ -453,6 +457,7 @@ export default function Profile() {
         <Container maxWidth="xl">
           <Grid container spacing={3} alignItems='flex-end'>
             <Grid item xs={12} sm={4} md={4} lg={2}>
+              {/* START Avatar */}
               <Avatar
                 src={
                   user.userData && user.userData?.profilePic
@@ -462,11 +467,13 @@ export default function Profile() {
                 style={{
                   width: "120px",
                   height: "120px",
-                  margin: '10px auto'
+                  margin: '-10px auto 0'
                 }}
               />
-              <Box className={classes.textbox}>
+              {/* End Avatar */}
 
+              <Box className={classes.textbox}>
+                {/* Start User Type */}
                 <Typography align='center' variant="h3"
                   style={{ textTransform: "capitalize" }}
                 >
@@ -498,8 +505,10 @@ export default function Profile() {
                     />
                   )}
                 </Typography>
+                {/* End User Type */}
+                {/* Start Wallet Address */}
                 <Typography align='center' variant="body2"
-                  component="p">
+                  component="p" className={classes.title}>
                   {sortAddress(user?.userData?.ethAccount?.address)} &nbsp;
                   {user?.userData?.ethAccount?.address && (
                     <CopyToClipboard
@@ -510,16 +519,20 @@ export default function Profile() {
                     </CopyToClipboard>
                   )}
                 </Typography>
+                {/* End Wallet Address */}
 
-                <Typography align='center' variant="body2" component="p">
+                {/* Start Subscribe */}
+                <Typography align='center' variant="body2" component="p" className={classes.title}>
                   {user &&
                     user.userData &&
                     user.userData?.followers?.length
                     ? user.userData?.followers?.length
                     : "0"} Subscriber{user.userData?.followers?.length > 1 ? "s" : ""}
                 </Typography>
+                {/* End Subscribe */}
+                {/* Start refferall */}
                 <Typography align='center' variant="body2"
-                  component="p">
+                  component="p" className={classes.title}>
                   Referral code : {user?.userData?.referralCode} &nbsp;
                   <CopyToClipboard
                     text={user?.userData?.referralCode}
@@ -528,13 +541,18 @@ export default function Profile() {
                     <FiCopy onClick={() => toast.success("Referral code Copied")} />
                   </CopyToClipboard>
                 </Typography>
-                <Button style={{ marginTop: "6px", maxWidth: "100px" }} onClick={() => setOpenShare(true)}>
+                {/* End refferall */}
+
+                {/* Start Share */}
+                <Button style={{ marginTop: "8px", maxWidth: "100px", borderRadius: "15px", background: "linear-gradient(180deg, #c04848 0%, #480048 100%)", color: "#FFF" }} onClick={() => setOpenShare(true)}>
                   Share
                 </Button>
+                {/* End Share */}
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={8} md={8} lg={5}>
+            {/* Start Buttons Deposite Share */}
+            <Grid item xs={12} sm={8} md={8} lg={5} style={{ marginTop: "-18px" }}>
               <Box display='flex' justifyContent='flex-end' alignContent='center'>
 
                 <Box className={classes.walletActions}>
@@ -561,18 +579,21 @@ export default function Profile() {
                   </IconButton>
                 </Box>
               </Box>
+              {/* Start Title Total Balance */}
               <Typography
                 variant="h5"
                 component="h5"
               >
                 TOTAL BALANCE
               </Typography>
+              {/* End Title Total Balance*/}
               <BalanceBox
                 availableBalance={availableBalance}
                 tokensDetails={tokensDetails}
                 setSelectedToken={setSelectedToken}
               />
             </Grid>
+            {/* End Buttons Deposite Share */}
 
             <Grid item xs={12} sm={12} md={12} lg={5}>
 
@@ -608,7 +629,6 @@ export default function Profile() {
             </Grid>
 
           </Grid>
-          <Tabs />
         </Container>
       </Box>
 

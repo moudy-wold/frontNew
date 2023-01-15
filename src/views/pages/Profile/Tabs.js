@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
   Padding_Top: {
     paddingTop: "50px",
     backgroundColor: "#fff",
+    minHeight: "100vh"
   },
   PageHeading: {
     fontWeight: "500",
@@ -30,7 +31,10 @@ const useStyles = makeStyles(() => ({
   },
   active: {
     borderBottom: "2px solid #792034",
-    borderRadius: "0px",
+    borderRadius: "15px",
+    color: "#FFF",
+    background: "linear-gradient(180deg, #480048 0%, #c04848 100%)",
+
   },
 }));
 
@@ -89,7 +93,7 @@ export default function Activity() {
         console.log(err.message);
       });
   };
-  
+
   const getBundleListHandler = async () => {
     setIsLoading(true);
     await axios({
@@ -333,7 +337,7 @@ export default function Activity() {
               >
                 Bought Auctions NFT
               </Button>
-              <Button
+              {/* <Button
                 className={
                   tabview === "DonateList" ? classes.active : " "
                 }
@@ -348,7 +352,7 @@ export default function Activity() {
                 onClick={() => setTabView("TransactionHistory")}
               >
                 Transaction History
-              </Button>
+              </Button> */}
             </Box>
             <Box>
               {tabview === "bundles" && (
@@ -397,9 +401,9 @@ export default function Activity() {
                 />
               )}
               {tabview === "bids" && (
-                <MyBids 
-                  auction={myBidList} 
-                  updateList={myBidListHandler} 
+                <MyBids
+                  auction={myBidList}
+                  updateList={myBidListHandler}
                 />
               )}
               {tabview === "donor" && (

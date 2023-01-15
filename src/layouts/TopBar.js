@@ -13,12 +13,9 @@ import {
   MenuItem,
   Box,
   Container,
-  Typography,
+  Typography
 } from "@material-ui/core";
-import {
-  AiOutlineLogout,
-  AiFillSetting
-} from "react-icons/ai";
+import { AiOutlineLogout, AiFillSetting } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import SearchIcon from "@material-ui/icons/Search";
 import { UserContext } from "src/context/User";
@@ -26,7 +23,6 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import React, { useContext, useState, useEffect } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-
 import Logo from "src/component/Logo";
 import User from "src/component/User";
 import NotificationCard from "src/component/NotificationCard";
@@ -104,7 +100,12 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
     },
   },
-
+  liLink: {
+    "& span li": {
+      width: "fit-content",
+      textAlign: "center",
+    }
+  },
   logoDrawer: {
     paddingLeft: "10px",
     width: "140px",
@@ -207,6 +208,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
     backgroundColor: " #FCF2FA",
     borderRadius: "40px",
+    textAlign: "center!important",
     "& h4": {
       fontSize: "14px",
       lineHeight: " 17px",
@@ -735,6 +737,7 @@ export default function Header() {
           key={label}
           color="inherit"
           to={href}
+          className={classes.liLink}
           component={Link}
         >
           <MenuItem className={menuMobile}>{label}</MenuItem>
@@ -744,6 +747,7 @@ export default function Header() {
           key={label}
           color="inherit"
           to={href}
+
           onClick={() => {
             navigate("/");
           }}

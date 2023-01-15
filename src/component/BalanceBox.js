@@ -9,7 +9,7 @@ import BalanceBadge from "src/component/BalanceBadge";
 
 const useStyles = makeStyles(() => ({
   masBox: {
-    padding: "10px",
+    padding: "0px",
     "& ul": {
       display: "flex",
       padding: "0",
@@ -36,26 +36,26 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default function BalanceBox({availableBalance, tokensDetails, setSelectedToken}) {
-  const classes = useStyles();  
+export default function BalanceBox({ availableBalance, tokensDetails, setSelectedToken }) {
+  const classes = useStyles();
 
   return (
     <Paper className={classes.masBox}>
-    <List>
-      {tokensDetails.map((d, i) => {
-        return (
-          <ListItem p={0}
-          style={{ cursor: "pointer" }}
-          onClick={() => { setSelectedToken(d) }}
-           key={i}>
-            <BalanceBadge
-              token={d}
-              balance={availableBalance[d.databaseKey]}
-            />
-          </ListItem>
-        );
-      })}
-    </List>
-  </Paper>
+      <List>
+        {tokensDetails.map((d, i) => {
+          return (
+            <ListItem p={0}
+              style={{ cursor: "pointer" }}
+              onClick={() => { setSelectedToken(d) }}
+              key={i}>
+              <BalanceBadge
+                token={d}
+                balance={availableBalance[d.databaseKey]}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+    </Paper>
   )
 }

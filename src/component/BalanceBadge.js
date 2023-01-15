@@ -9,7 +9,7 @@ import {
 const useStyles = makeStyles(() => ({
   token: {
     textAlign: 'center',
-    padding: '20px 0',
+    padding: '5px 0',
     '& p': {
       fontSize: '14px',
       fontWeight: '500',
@@ -22,9 +22,9 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default function BalanceBadge({token, balance}) {
-  const classes = useStyles();  
-     
+export default function BalanceBadge({ token, balance }) {
+  const classes = useStyles();
+
   return (
     <Box>
       <Box className={classes.token}>
@@ -35,7 +35,7 @@ export default function BalanceBadge({token, balance}) {
           <Typography variant="h6" component="h6">
             {token.name}
           </Typography>
-          <img height="25" width="25" src={'/'+token.img} />
+          <img height="25" width="25" src={'/' + token.img} />
         </Box>
       </Box>
     </Box>

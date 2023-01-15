@@ -38,6 +38,8 @@ overflow:visible;
 .carousel-status{
     display:none
 }
-.slide {
-    /* min-width:95%!important */
+@media (max-width:567px){
+    .slide {
+        /* min-width:95%!important */
+    }
 }
