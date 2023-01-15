@@ -544,7 +544,7 @@ export default function Profile() {
                 {/* End refferall */}
 
                 {/* Start Share */}
-                <Button style={{ marginTop: "8px", maxWidth: "100px", borderRadius: "15px", background: "linear-gradient(180deg, #c04848 0%, #480048 100%)", color: "#FFF" }} onClick={() => setOpenShare(true)}>
+                <Button style={{ marginTop: "8px", width: "225px", borderRadius: "15px", background: "linear-gradient(180deg, #c04848 0%, #480048 100%)", color: "#FFF" }} onClick={() => setOpenShare(true)}>
                   Share
                 </Button>
                 {/* End Share */}
