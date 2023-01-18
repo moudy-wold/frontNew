@@ -52,6 +52,7 @@ import { FaTwitter } from "react-icons/fa";
 import { VerifyOtp } from "src/component/Modals/VerifyOtp"
 import Tabs from "./Tabs"
 
+
 const useStyles = makeStyles((theme) => ({
   profilebg: {
     boxShadow: " 0 1.5px 3px 0 rgba(0, 0, 0, 0.16)",
@@ -311,7 +312,6 @@ export default function Profile() {
   const classes = useStyles();
   const user = useContext(UserContext);
   const navigate = useNavigate();
-
   const [openDeposit, setOpenDeposit] = useState(false);
   const [openWihdraw, setOpenWithdraw] = useState(false);
   const [openSelectToken, setOpenSelectToken] = useState(false);

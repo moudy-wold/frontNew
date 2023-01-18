@@ -25,7 +25,7 @@ import InsertPhotoRoundedIcon from '@material-ui/icons/InsertPhotoRounded';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import SendIcon from '@material-ui/icons/Send';
 import ImageUploading from "react-images-uploading";
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
+import { RemoveScrollBar } from 'react-remove-scroll-bar';
 
 import InputEmoji from "react-input-emoji";
 import axios from "axios";
@@ -36,7 +36,7 @@ import DataLoading from "src/component/DataLoading";
 import io from 'socket.io-client';
 import { toast } from "react-toastify";
 import { Virtuoso } from 'react-virtuoso';
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 const drawerWidth = 300;
 
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   main: {
     display: 'flex',
-    flexDirection: 'column', 
+    flexDirection: 'column',
     justifyContent: "space-between",
     alignItems: 'stretch',
     padding: '10px 0px',
@@ -83,11 +83,11 @@ const useStyles = makeStyles((theme) => ({
   msg: {
     alignSelf: 'end',
     width: '100%',
-    '& .react-input-emoji--container':{
+    '& .react-input-emoji--container': {
       order: 2,
       margin: "0px 10px"
     },
-    '& .react-emoji-picker--wrapper':{
+    '& .react-emoji-picker--wrapper': {
       width: '100%',
     },
   },
@@ -104,13 +104,13 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
   const START_INDEX = 10000;
   const INITIAL_ITEM_COUNT = 50;
   const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX)
-  
+
   const classes = useStyles();
   const user = useContext(UserContext);
   const virtuosoRef = useRef(null)
   const [isScrolling, setIsScrolling] = useState(false);
   const [theStart, setTheStart] = useState(false);
-  
+
   const [messages, setMessages] = useState([]);
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -128,7 +128,7 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
       try {
         setUploading(true);
         let upload_images = [...images];
-        for(const image in upload_images){
+        for (const image in upload_images) {
           const formData = new FormData();
           formData.append("file", upload_images[image].file);
           const res = await axios({
@@ -148,7 +148,7 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
             };
             socket.emit("sendMsg", data);
           } else {
-            toast.error("Error upload image " + (image+1));
+            toast.error("Error upload image " + (image + 1));
           }
         }
         setUploading(false);
@@ -194,7 +194,6 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
   useEffect(() => {
 
     let unreaded = unreadMsgs();
-    console.log(chat._id, unreaded.length);
 
     if (visible) {
       !isScrolling && virtuosoRef.current.scrollToIndex({ index: messages.length - 1, behavior: 'smooth' });
@@ -234,7 +233,7 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
   }).then(res => {
     if (res.data.result.length > 0) {
       let result = res.data.result.reverse();
-      setMessages((msgs) => [...result, ...msgs, ]);
+      setMessages((msgs) => [...result, ...msgs,]);
       setFirstItemIndex(firstItemIndex => firstItemIndex - result.length);
     } else {
       setTheStart(true);
@@ -254,12 +253,16 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
   }, []);
 
   return (
-    <Box 
-      className={classes.main} 
-      style={{ 
+    // Start Chat Content
+    <Box
+      className={classes.main}
+      style={{
         display: visible ? 'flex' : 'none',
-        paddingBottom: isMobile? '110px' : '10px'
-        }}>
+        paddingBottom: isMobile ? '10px' : '10px',
+        height: isMobile ? '60vh' : '90vh'
+      }}>
+
+      {/* Start User`s avatar */}
       <Box display='flex' alignItems='center'>
         <Avatar alt={contact.userName} src={photo} className={classes.avatar} />
         <Box m={1}>
@@ -269,6 +272,10 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
           </Typography>
         </Box>
       </Box>
+      {/* End User`s avatar */}
+
+
+      {/* Start Masseges Box  */}
       <Virtuoso
         style={{ flexGrow: 1 }}
         ref={virtuosoRef}
@@ -277,19 +284,23 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
         initialTopMostItemIndex={INITIAL_ITEM_COUNT - 1}
         data={messages}
         startReached={loadChat}
+        // Start chat Start
         components={{
           Header: () => {
             return theStart ?
               <Box width='100%' align='center' >
                 <Typography component="h5" variant="h5" >Chat started</Typography>
                 <Typography component="p" variant="body2" >
-                {messages[0] && new Date(messages[0]?.createdAt).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}
+                  {messages[0] && new Date(messages[0]?.createdAt).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" })}
                 </Typography>
               </Box> :
               <DataLoading />
-            
+
           },
         }}
+        // End chat Start
+
+        // Start msg
         itemContent={(index, msg) => {
           let alignT = (msg.sender == user.userData._id) ? 'right' : ' left';
           let justf = (msg.sender == user.userData._id) ? 'flex-end' : ' flex-start';
@@ -312,9 +323,13 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
             </Box>
           )
         }}
+      // End msg
       />
-     
+      {/* End Masseges Box  */}
+
+
       <Box display={images.length > 0 ? 'block' : 'flex'} className={classes.msg}>
+        {/* Start Enter Image */}
         <ImageUploading
           multiple
           value={images}
@@ -343,8 +358,8 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
               {imageList.length > 0 &&
                 <ImageList rowHeight={120} className={classes.imageList} cols={6}>
                   {imageList.map((image, index) => (
-                    <ImageListItem key={index} cols={1} style={{backgroundColor:'#ffffff55',textAlign:'center'}}>
-                      <img src={image.data_url} alt="" style={{height:'100%', width:'auto',margin:'auto'}} />
+                    <ImageListItem key={index} cols={1} style={{ backgroundColor: '#ffffff55', textAlign: 'center' }}>
+                      <img src={image.data_url} alt="" style={{ height: '100%', width: 'auto', margin: 'auto' }} />
                       <ImageListItemBar
                         title={(index + 1) + ': ' + image.file.name}
                         subtitle={<span>{image.file.size} bytes</span>}
@@ -354,7 +369,7 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
                             disabled={uploading}
                             aria-label={`remove from selection`}>
                             {uploading ? <DataLoading /> :
-                            <HighlightOffOutlinedIcon color="error" />
+                              <HighlightOffOutlinedIcon color="error" />
                             }
                           </IconButton>
                         }
@@ -379,7 +394,9 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
             </>
           )}
         </ImageUploading>
+        {/*End Enter Image */}
 
+        {/* Start input And Emoji */}
         <InputEmoji
           value={msg}
           onChange={setMsg}
@@ -388,8 +405,12 @@ const ChatBox = function ({ chat, socket, visible, isOnline }) {
           placeholder="Type a message"
           className={classes.msgInput}
         />
+        {/*End input And Emoji */}
+
       </Box>
     </Box>
+    // End Chat Content
+
   )
 }
 
@@ -443,15 +464,17 @@ export default function Chat() {
   return (
     <Box className={classes.container}>
       <RemoveScrollBar />
+      {/* Start left Section */}
       <Drawer
         className={classes.drawer}
-        variant={isMobile ? "persistent": "permanent"}
+        variant={isMobile ? "persistent" : "permanent"}
         classes={{
           paper: classes.drawerPaper,
         }}
         anchor="left"
         open={chatId == 't'}
       >
+
         <List>
           <ListItem>
             {isConnected ?
@@ -461,9 +484,9 @@ export default function Chat() {
           </ListItem>
         </List>
         <Divider />
+        {/* Start Usres */}
         <List dense={true}>
           {!chatList ? <DataLoading /> :
-
             chatList.length > 0 && chatList.map((chat) => {
               let contact = chat.users.find(c => c._id != user.userData._id);
               let photo = contact.profilePic ? contact.profilePic :
@@ -486,7 +509,11 @@ export default function Chat() {
             })
           }
         </List>
+        {/* End Usres */}
+
       </Drawer>
+      {/* End left Section */}
+
       {chatId == 't' ?
         <Box className={classes.main} style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
           <Typography component="h2" variant="h2" align='center'>

@@ -598,7 +598,7 @@ export default function ProfileSettings() {
         </Box>
         {/* End Phone Number */}
 
-        {needVerification.length == 0 && <VerificationAlert verify={needVerification} />}
+        {needVerification.length == 1 && <VerificationAlert verify={needVerification} />}
 
         {/* Start profile URL */}
         <Box mt={0}>

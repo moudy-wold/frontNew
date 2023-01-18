@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     background: "#fff",
     width: "275px",
   },
-  
+
   main: {
     color: "#999",
     background: "#fff",
@@ -31,14 +31,14 @@ export default function UsersCard({
 }) {
   const classes = useStyles();
   const handleCloseFunction = () => {
-    navigate("/user-profile/"+users.userName)
+    navigate("/user-profile/" + users.userName)
     setIsLoading1(false);
     setsearch("");
   };
 
   return (
     <Box className={classes.main} onClick={handleCloseFunction}>
-      <Grid 
+      <Grid
         container
         direction="row"
         justifyContent="flex-start"
@@ -63,8 +63,8 @@ export default function UsersCard({
               {users.name
                 ? users.name
                 : users.userType === "User"
-                ? sortAddress(users.walletAddress)
-                : sortAddress(users.ethAccount.address)}
+                  ? sortAddress(users.walletAddress)
+                  : sortAddress(users.ethAccount.address)}
             </Typography>
           </Box>
         </Grid>

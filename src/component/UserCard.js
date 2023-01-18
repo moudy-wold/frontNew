@@ -90,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserDetailsCard(data) {
   // url: Apiconfigs.latestUserList,
-
   const userCardData = data.data;
   const navigate = useNavigate();
   const classes = useStyles();
@@ -158,6 +157,8 @@ export default function UserDetailsCard(data) {
       setisLike(userCardData.likesUsers?.includes(auth.userData._id));
       setisSubscribed(userCardData.followers?.includes(auth.userData._id));
     }
+    console.log(userCardData._id)
+
   }, [])
 
   return (
@@ -260,18 +261,16 @@ export default function UserDetailsCard(data) {
 
           {/* Start Chat */}
           <Box>
-
-          </Box>
-          {/* End Chat */}
-          <Box>
             <Tooltip title="Chat" placement="bottom">
-              <IconButton onClick={() => navigate("/chat/t")}>
+              <IconButton onClick={() => navigate(`/chat/t${userCardData._id}`)}>
                 <Badge badgeContent={Object.keys(auth.unreadChats).length} overlap="rectangular" color="primary">
                   <BsChat style={{ color: "#000" }} />
                 </Badge>
               </IconButton>
             </Tooltip>
           </Box>
+          {/* End Chat */}
+
           {/* Start Like */}
           <Box style={{
             cursor: "pointer",

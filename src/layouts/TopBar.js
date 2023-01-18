@@ -58,7 +58,7 @@ const menuLinks = [
     label: "Metaverse",
     href: "/corporate/metaverse",
     isLink: true,
-  },
+  }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -378,17 +378,17 @@ export default function Header() {
   window.addEventListener("click", function (event) {
     setsearch("");
   });
-
+  // start Search result
   const SearchResult = () => {
     return (
       <Box className={classes.searchResults}>
+        {/* Start Title */}
         <Box style={{ height: '54px', marginBottom: "14px", color: '#fafafa', backgroundImage: 'linear-gradient(to bottom, #c04848, #480048)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Typography variant="h4">
             Search Result
           </Typography>
         </Box>
-
-
+        {/*End Title */}
         {!isLoading && userList && userList.length === 0 ? (
           <NoDataFound />
         ) : (
@@ -397,22 +397,28 @@ export default function Header() {
         {userList &&
           userList?.map((data, i) => {
             return (
-              <User
+              <Button
                 key={i}
-                search={search}
-                isLoading1={isLoading1}
-                setIsLoading1={setIsLoading1}
-                setsearch={setsearch}
-                userList={userList}
-                setUserList={setUserList}
-                users={data}
-                history={history}
-              />
+                onClick={() => {
+                  navigate(`/user-profile/${data.userName}`);
+                }}>
+                <User
+                  search={search}
+                  isLoading1={isLoading1}
+                  setIsLoading1={setIsLoading1}
+                  setsearch={setsearch}
+                  userList={userList}
+                  setUserList={setUserList}
+                  users={data}
+                  history={history}
+                />
+              </Button>
             );
           })}
       </Box>
     )
   }
+  //End Search result
 
   const displayDesktop = () => {
     return (
@@ -747,11 +753,9 @@ export default function Header() {
           key={label}
           color="inherit"
           to={href}
-
           onClick={() => {
             navigate("/");
           }}
-
         >
           <MenuItem className={menuMobile}>{label}</MenuItem>
         </Button>
